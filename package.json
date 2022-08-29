@@ -1,0 +1,28 @@
+{
+  "name": "pruebota-mevm2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.6.0",
+    "graphql-express": "^2.0.7",
+    "mongoose": "^6.5.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.13",
+    "@babel/node": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "nodemon": "^2.0.19"
+  },
+  "scripts": {
+    "dev": "nodemon app.js --exec babel-node"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
