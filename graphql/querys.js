@@ -13,35 +13,40 @@ const players = {
     },
     async resolve(_, args) {
 
-        let skip = 0;
-        
+        let query;
         let queryc = args.name ? { name: args.name } : false;
-        let concatQuery = {};
+        let clubId;
         if(queryc) {
             const club = await Club.findOne(queryc);
-            let clubId = club.id;
-            concatQuery = { clubId: clubId, };
+            clubId = club.id;            
+        }                       
+        
+        /* let query = args.search ? {name: {$regex: '.*' + args.search + '.*', $options: 'i'}} : {}; */
+        
+        if(args?.search && args?.name) {
+            query = {name: {$regex: '.*' + args.search + '.*', $options: 'i'}, clubId: clubId}
         }
-        
-        let query = args.search ? {name: {$regex: '.*' + args.search + '.*', $options: 'i'},} : {};
-        
-        
-        let sort = 'asc';
-        
+        else if(args?.search) {
+            query = {name: {$regex: '.*' + args.search + '.*', $options: 'i'}}
+        }
+        else if(args?.name) {
+            query = { clubId: clubId }
+        }
+        else {
+            query = 'go';
+        }               
+
+        let skip = 0;
+        let sort = 'asc';        
         if(args.order == 'desc') {
             sort = 'desc';
         }
-        
+    
         let perPage = 2;
-        let page = args.page ? args.page : 1;               
-
+        let page = args.page ? args.page : 1;
         if(page > 1) {
             skip = perPage * (page-1);
-        }
-
-        let generalQuery =  {
-
-        };
+        }        
 
         const players = await Player.find(query)
         .limit(perPage)
